@@ -7,51 +7,61 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 /**
  * Hello world!
  *
  */
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws InterruptedException
     {
     	
-        System.out.println( "Script Started" );
-        
-        //initialising the web driver
+        System.out.println("Script Started");	
+	    //initializing the web driver
+	  
         System.setProperty("webdriver.chrome.driver", "C:/Users/lenovo/eclipse-workspace/chromedriver/chromedriver.exe");
-        
-        
-        //setting properties
-        ChromeOptions chromeOptions = new ChromeOptions();
-//        chromeOptions).setBrowserVersion("117");
-        
-        //open url
-        System.out.println("Driver opening up the url in browser");
-        
-        WebDriver driver = new ChromeDriver(chromeOptions);
-//        driver.get("http://localhost:8080/addressbook/");
-        driver.get("https://www.facebook.com/");
-        
-        //involve implict waits to load page
-        driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
-        
-        System.out.println("Enter details in the form");
-        
-        
-        driver.findElement(By.id("email")).sendKeys("abhi144k@gmail.com");
-        driver.findElement(By.id("pass")).sendKeys("password");
-        
-        //click on save-by class = v-button-primary
-//        driver.findElement(By.className("v-button-primary")).click(); 
-//        Thread.sleep(2000);
-        driver.findElement(By.className("_6ltg")).click();  
-        
-        System.out.println("Saving details");
-        
-        System.out.println("Test case execution completed");
-        
-        driver.quit();
+        WebDriverManager.chromedriver().setup();
+	    //setting properties
+	    ChromeOptions chromeOptions = new ChromeOptions();
+//	    chromeOptions.addArguments("--headless");
+	    // open url
+	    System.out.println("Driver opening up the url in browser");	
+	    WebDriver driver = new ChromeDriver(chromeOptions);
+	    driver.get("http://65.2.184.14:8081/contact.html");	
+	    
+	    //invole implicit waits to load the page
+	    driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+	    
+	    System.out.println("Enter details in the form");
+	    //enter details
+//	    driver.findElement(By.className("v-button")).click();	
+//	    Thread.sleep(2000);
+	    //firstname gwt-uid-5
+	    driver.findElement(By.id("inputName")).sendKeys("Abhishek");
+	    Thread.sleep(2000);
+	    //lastname gwt-uid-7
+	    driver.findElement(By.id("inputNumber")).sendKeys("9958580999");
+	    Thread.sleep(2000);
+	    //contactno id="gwt-uid-9"
+//	    driver.findElement(By.id("gwt-uid-9")).sendKeys("9999999999");
+	    //email gwt-uid-11
+	    driver.findElement(By.id("inputMail")).sendKeys("abhishek@email.com");
+	    //date of birth gwt-uid-13
+	    driver.findElement(By.id("inputMessage")).sendKeys("Hello from Abhishek to StarAgile");
+	    Thread.sleep(2000);
+	    //click on save -by class = v-button-primary
+	    driver.findElement(By.id("my-button")).click();
+	    System.out.println("Saving details");
+	    Thread.sleep(2000);
+	    
+	    System.out.println("Test Case execution completed");
+	    Thread.sleep(2000);
+	    driver.quit();
+ 
+ 
+
         
     }
 }
