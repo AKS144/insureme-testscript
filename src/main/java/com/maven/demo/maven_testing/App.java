@@ -29,7 +29,7 @@ public class App
 	    // open url
 	    System.out.println("Driver opening up the url in browser");	
 	    WebDriver driver = new ChromeDriver(chromeOptions);
-	    driver.get("http://52.66.165.25:8081/contact.html");	
+	    driver.get("http://13.201.85.9:8081/contact.html");	
 	    
 	    //invole implicit waits to load the page
 	    driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
