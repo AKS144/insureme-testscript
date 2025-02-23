@@ -1,67 +1,44 @@
 package com.maven.demo.maven_testing;
 
-import java.util.concurrent.TimeUnit;
-
+import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args ) throws InterruptedException
-    {
-    	
-        System.out.println("Script Started");	
-	    //initializing the web driver
-	  
-        System.setProperty("webdriver.chrome.driver", "C:/Users/lenovo/eclipse-workspace/chromedriver/chromedriver.exe");
-        WebDriverManager.chromedriver().setup();
-	    //setting properties
-	    ChromeOptions chromeOptions = new ChromeOptions();
-//	    chromeOptions.addArguments("--headless");
-	    // open url
-	    System.out.println("Driver opening up the url in browser");	
-	    WebDriver driver = new ChromeDriver(chromeOptions);
-	    driver.get("http://13.232.237.108:8081/contact.html");	
-	    
-	    //invole implicit waits to load the page
-	    driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-	    
-	    System.out.println("Enter details in the form");
-	    //enter details
-//	    driver.findElement(By.className("v-button")).click();	
-//	    Thread.sleep(2000);
-	    //firstname gwt-uid-5
-	    driver.findElement(By.id("inputName")).sendKeys("Abhishek");
-	    Thread.sleep(2000);
-	    //lastname gwt-uid-7
-	    driver.findElement(By.id("inputNumber")).sendKeys("9958580999");
-	    Thread.sleep(2000);
-	    //contactno id="gwt-uid-9"
-//	    driver.findElement(By.id("gwt-uid-9")).sendKeys("9999999999");
-	    //email gwt-uid-11
-	    driver.findElement(By.id("inputMail")).sendKeys("abhishek@email.com");
-	    //date of birth gwt-uid-13
-	    driver.findElement(By.id("inputMessage")).sendKeys("Hello from Abhishek to StarAgile");
-	    Thread.sleep(2000);
-	    //click on save -by class = v-button-primary
-	    driver.findElement(By.id("my-button")).click();
-	    System.out.println("Saving details");
-	    Thread.sleep(2000);
-	    
-	    System.out.println("Test Case execution completed");
-	    Thread.sleep(2000);
-	    driver.quit();
- 
- 
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Script Started");
 
+        WebDriverManager.chromedriver().setup();
         
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless=new");  
+        chromeOptions.addArguments("--no-sandbox");   
+        chromeOptions.addArguments("--disable-dev-shm-usage"); 
+
+        WebDriver driver = new ChromeDriver(chromeOptions);
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+
+        System.out.println("Opening URL");
+        driver.get("http://13.232.237.108:8081/contact.html");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        System.out.println("Filling form...");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputName"))).sendKeys("Abhishek");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputNumber"))).sendKeys("9958580999");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputMail"))).sendKeys("abhishek@email.com");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputMessage"))).sendKeys("Hello from Abhishek to StarAgile");
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("my-button"))).click();
+        
+        System.out.println("Saving details");
+        System.out.println("Test Case execution completed");
+
+        driver.quit();
     }
 }
