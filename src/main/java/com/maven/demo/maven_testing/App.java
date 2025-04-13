@@ -21,7 +21,9 @@ public class App {
         chromeOptions.addArguments("--disable-dev-shm-usage"); 
 
         WebDriver driver = new ChromeDriver(chromeOptions);
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        // driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS); // Correct
+
 
         System.out.println("Opening URL");
         driver.get("http://13.201.58.61:8081/contact.html");
