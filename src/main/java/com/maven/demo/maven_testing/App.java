@@ -24,7 +24,7 @@ public class App {
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
 
         System.out.println("Opening URL");
-        driver.get("http://13.232.237.108:8081/contact.html");
+        driver.get("http://13.201.58.61:8081/contact.html");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
