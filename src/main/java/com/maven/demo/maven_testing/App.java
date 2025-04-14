@@ -1,12 +1,15 @@
 package com.maven.demo.maven_testing;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit; // ✅ IMPORTANT
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class App {
@@ -21,12 +24,12 @@ public class App {
         chromeOptions.addArguments("--disable-dev-shm-usage"); 
 
         WebDriver driver = new ChromeDriver(chromeOptions);
-        // driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS); // Correct
 
+        // ✅ Now this will work since TimeUnit is imported
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
         System.out.println("Opening URL");
-        driver.get("http://13.201.58.61:8081/contact.html");
+        driver.get("http://13.200.255.128:8081/contact.html");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
